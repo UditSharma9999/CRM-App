@@ -18,7 +18,8 @@ const PORT = process.env.POST || 8080;
 app.use(hemat())
 app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/audience", audience);
 app.use("/campaigns", campaigns);
@@ -26,10 +27,10 @@ app.use("/customer", customer);
 app.use("/order", order);
 app.use("/auth", authRoute);
 
-app.use(express.static(path.join(dirname, 'frontend/build')));
+app.use(express.static(path.join(dirname, 'client/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(dirname, 'frontend/build', 'index.html'));
+  res.sendFile(path.join(dirname, 'client/build', 'index.html'));
 });
 
 
